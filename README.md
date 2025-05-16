@@ -1,3 +1,8 @@
+🧙‍♂️ SetupWiz - The Ultimate Server Autogenerator
+SetupWiz is a powerful shell-based automation tool designed to magically set up your server environment in minutes — whether you're using GitHub Codespaces, local Linux, or your favorite VPS.
+
+Say goodbye to repetitive configuration and hello to clean, consistent, and ready-to-code server setups.
+
 🎯 Features
 🚀 One-command auto-setup for Codespaces and Linux servers
 
@@ -24,3 +29,4 @@ GitHub Codespaces
 Ubuntu / Debian-based servers
 
 Most modern Linux distributions
+
