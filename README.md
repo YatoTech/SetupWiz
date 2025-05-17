@@ -15,41 +15,39 @@ SetupWiz adalah skrip shell ajaib yang mengubah server Linux biasa (atau GitHub 
 🔄 Mudah dikustomisasi sesuai stack atau teknologi kamu
 
 📁 Struktur Direktori
+bash
 /workspaces/SetupWiz
 │
-├── Dockerfile # File Docker untuk container Node.js
-├── README.md # Dokumentasi proyek
-├── config.js # Konfigurasi global (opsional)
-├── deploy.sh # Script deploy aplikasi web (dengan PM2)
-├── package.json # Dependency proyek
-├── server.js # Entry utama server (PM2 & Docker)
-├── start_server.sh # Jalankan server menggunakan PM2
+├── Dockerfile                # File Docker untuk container Node.js
+├── README.md                 # Dokumentasi proyek
+├── config.js                # Konfigurasi global (opsional)
+├── deploy.sh                # Script deploy aplikasi web (dengan PM2)
+├── package.json             # Dependency proyek
+├── server.js                # Entry utama server (PM2 & Docker)
+├── start_server.sh          # Jalankan server menggunakan PM2
 │
-├── setup.sh # Script utama setup server
-├── setup_base.sh # Install tools dasar: Git, curl, NPM, dll
-├── setup_mongodb.sh # Install dan setup MongoDB
-├── setup_ssl.sh # Install mkcert & setup SSL lokal
-├── setup_web_structure.sh # Buat struktur Express.js otomatis
+├── setup.sh                 # Script utama setup server
+├── setup_base.sh            # Install tools dasar: Git, curl, NPM, dll
+├── setup_mongodb.sh         # Install dan setup MongoDB
+├── setup_ssl.sh             # Install mkcert & setup SSL lokal
+├── setup_web_structure.sh   # Buat struktur Express.js otomatis
 │
-└── webapp/ # Proyek Express.js hasil setup
-  ├── app.js # File utama Express
-  ├── controllers/
-  ├── models/
-  ├── routes/
-  ├── views/
-  └── public/
-
+└── webapp/                  # Proyek Express.js hasil setup
+   ├── app.js               # File utama Express
+   ├── controllers/
+   ├── models/
+   ├── routes/
+   ├── views/
+   └── public/
 🚀 Cara Penggunaan
-✅ 1. Clone Repo
+1. Clone Repo
 bash
 git clone https://github.com/yatotech/setupwiz.git
 cd setupwiz
-
-✅ 2. Jadikan Skrip Eksekusi
+2. Jadikan Skrip Eksekusi
 bash
 chmod +x setup.sh
-
-✅ 3. Jalankan Setup Utama
+3. Jalankan Setup Utama
 bash
 ./setup.sh
 Setup ini akan secara otomatis:
@@ -67,7 +65,7 @@ Install dependency webapp
 Jalankan server menggunakan PM2
 
 🔧 File Penting yang Dibutuhkan
-Pastikan file berikut tersedia:
+Pastikan file berikut tersedia di folder:
 
 setup.sh, setup_base.sh, setup_mongodb.sh, setup_ssl.sh, setup_web_structure.sh
 
@@ -78,13 +76,13 @@ start_server.sh, deploy.sh
 (Opsional) .env, .gitignore, config.js, Dockerfile
 
 🧪 Telah Diuji Pada
-✅ Ubuntu 20.04 / 22.04
+Ubuntu 20.04 / 22.04
 
-✅ Debian 11+
+Debian 11+
 
-✅ GitHub Codespaces
+GitHub Codespaces
 
-✅ DigitalOcean / Linode / Vultr VPS
+DigitalOcean / Linode / Vultr VPS
 
 🧩 Kustomisasi Stack
 Buka file setup.sh dan tambahkan tools yang kamu butuhkan, misalnya:
