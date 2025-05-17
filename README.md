@@ -2,15 +2,6 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
-<title>SetupWiz - Dokumentasi</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; line-height: 1.6; }
-  h1, h2 { color: #2c3e50; }
-  pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
-  code { background: #eee; padding: 2px 4px; border-radius: 3px; }
-  ul { margin-top: 0; }
-  hr { margin: 30px 0; }
-</style>
 </head>
 <body>
 
