@@ -1,75 +1,113 @@
-# 🧙‍♂️ SetupWiz
+🧙‍♂️ SetupWiz
+SetupWiz adalah skrip shell ajaib yang mengubah server Linux biasa (atau GitHub Codespace) menjadi lingkungan kerja siap pakai. Cocok untuk developer yang ingin menghemat waktu setup server atau provisioning VPS secara cepat, aman, dan konsisten.
 
-**SetupWiz** is a magical shell script that instantly turns any Linux-based server (or GitHub Codespace) into a ready-to-code environment. Whether you're setting up a dev box or provisioning a new VPS, SetupWiz saves your time, eliminates repetitive work, and standardizes your configurations.
+✨ Fitur Utama
+⚡ Setup sekali jalan — Jalankan 1 baris dan server langsung siap pakai
 
----
+🛠️ Instalasi alat penting: Git, Node.js, Nginx, MongoDB, PM2, dll.
 
-## ✨ Features
+🔐 Setup SSL lokal (mkcert), firewall, dan keamanan dasar
 
-- ⚡ **One-liner setup** — Just run and let the magic begin
-- 🛠️ Installs essential tools: `Git`, `Nginx`, `Node.js`, `PHP`, `MySQL`, etc.
-- 🔐 Configures SSH keys, firewall rules, and basic security
-- 🧰 Sets up common dev directories and permissions
-- ☁️ Works on **Codespaces**, **VPS**, or **local Linux**
-- 💡 Easily customizable for your stack
+🧰 Buat struktur folder untuk proyek Express.js
 
----
+☁️ Cocok untuk Codespace, VPS, atau server lokal
 
-## 📦 What's Inside?
+🔄 Mudah dikustomisasi sesuai stack atau teknologi kamu
 
-| Tool        | Purpose                      |
-|-------------|------------------------------|
-| `git`       | Version control              |
-| `nginx`     | Web server                   |
-| `php`       | Backend scripting            |
-| `mysql`     | Database                     |
-| `nodejs`    | JS runtime for fullstack dev |
-| `ufw`       | Basic firewall configuration |
-| `fail2ban`  | Brute-force protection       |
-| `oh-my-zsh` | Beautiful terminal setup     |
+📁 Struktur Direktori
+/workspaces/SetupWiz
+│
+├── Dockerfile # File Docker untuk container Node.js
+├── README.md # Dokumentasi proyek
+├── config.js # Konfigurasi global (opsional)
+├── deploy.sh # Script deploy aplikasi web (dengan PM2)
+├── package.json # Dependency proyek
+├── server.js # Entry utama server (PM2 & Docker)
+├── start_server.sh # Jalankan server menggunakan PM2
+│
+├── setup.sh # Script utama setup server
+├── setup_base.sh # Install tools dasar: Git, curl, NPM, dll
+├── setup_mongodb.sh # Install dan setup MongoDB
+├── setup_ssl.sh # Install mkcert & setup SSL lokal
+├── setup_web_structure.sh # Buat struktur Express.js otomatis
+│
+└── webapp/ # Proyek Express.js hasil setup
+  ├── app.js # File utama Express
+  ├── controllers/
+  ├── models/
+  ├── routes/
+  ├── views/
+  └── public/
 
-> ⚙️ More packages can be added based on your needs.
-
----
-
-## 🚀 Quick Start
-
-### ✅ 1. Clone the Repo
+🚀 Cara Penggunaan
+✅ 1. Clone Repo
 bash
-git clone https://github.com/yourusername/setupwiz.git
+git clone https://github.com/yatotech/setupwiz.git
 cd setupwiz
 
-✅ 2. Make Script Executable
+✅ 2. Jadikan Skrip Eksekusi
 bash
 chmod +x setup.sh
 
-✅ 3. Run the Magic 🧙
+✅ 3. Jalankan Setup Utama
 bash
 ./setup.sh
-🪄 That's it! Your environment is being prepared like a pro.
+Setup ini akan secara otomatis:
 
-🧪 Tested On
+Install tools dasar (curl, node, npm, dsb)
+
+Setup MongoDB dan user default
+
+Setup SSL lokal dengan mkcert
+
+Buat folder dan file webapp/
+
+Install dependency webapp
+
+Jalankan server menggunakan PM2
+
+🔧 File Penting yang Dibutuhkan
+Pastikan file berikut tersedia:
+
+setup.sh, setup_base.sh, setup_mongodb.sh, setup_ssl.sh, setup_web_structure.sh
+
+server.js, package.json
+
+start_server.sh, deploy.sh
+
+(Opsional) .env, .gitignore, config.js, Dockerfile
+
+🧪 Telah Diuji Pada
 ✅ Ubuntu 20.04 / 22.04
+
 ✅ Debian 11+
-✅ GitHub Codespaces (Ubuntu image)
+
+✅ GitHub Codespaces
+
 ✅ DigitalOcean / Linode / Vultr VPS
 
-🧩 Customize Your Stack
-Open the setup.sh file and edit the sections to suit your project needs:
-# Example: install Docker
+🧩 Kustomisasi Stack
+Buka file setup.sh dan tambahkan tools yang kamu butuhkan, misalnya:
+
+bash
+# Install Docker
 sudo apt install docker.io -y
-You can also add:
+Kamu juga bisa menambahkan:
 
 Laravel / Composer
-PM2 / Docker Compose
-SSL certificates & NGINX configuration
-CI/CD tools or deployment hooks
 
-🛡️ Security Disclaimer
-⚠️ This script makes changes to your system.
-Please review the code before running it, especially in production environments.
-Use at your own risk and responsibility.
+Docker Compose
 
-📜 License
+CI/CD pipeline
+
+Reverse Proxy + Certbot
+
+Logging & monitoring
+
+🛡️ Peringatan Keamanan
+⚠️ Script ini melakukan perubahan sistem.
+Harap review kode terlebih dahulu sebelum digunakan, terutama di server produksi.
+Gunakan dengan tanggung jawab sendiri.
+
+📜 Lisensi
 MIT License © 2025 YatoTech
-
