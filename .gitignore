@@ -1,12 +1,16 @@
-node_modules/
-.DS_Store
-*.log
-.idea/
-.vscode/
-# .gitignore
-
-# Abaikan file/folder runtime MongoDB dan SSL
+# Runtime dan Data Lokal
 mongodb/
 certs/
+*.log
+package-lock.json
+
+# Node dependencies
 node_modules/
-webapp/
+
+# Editor & System files
+.DS_Store
+.idea/
+.vscode/
+
+# Webapp build (jika hasil build tidak ingin di-push)
+webapp/build/
