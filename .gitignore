@@ -6,6 +6,7 @@ node_modules/
 # .gitignore
 
 # Abaikan file/folder runtime MongoDB dan SSL
-mongodb/data/db/
-mongodb/mongodb_logs/
+mongodb/
 certs/
+node_modules/
+webapp/
