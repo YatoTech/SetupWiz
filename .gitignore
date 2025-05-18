@@ -3,3 +3,9 @@ node_modules/
 *.log
 .idea/
 .vscode/
+# .gitignore
+
+# Abaikan file/folder runtime MongoDB dan SSL
+mongodb/data/db/
+mongodb/mongodb_logs/
+certs/
