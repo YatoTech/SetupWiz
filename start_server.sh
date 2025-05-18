@@ -22,9 +22,25 @@ log() {
 log ""
 log "=== MEMULAI SERVER: $APP_NAME ==="
 
-# === Cek & Hapus Proses Korup / Tidak Aktif ===
+# === Validasi Entry File ===
+if [ ! -f "$ENTRY_FILE" ]; then
+    log "[✗] File entry '$ENTRY_FILE' tidak ditemukan."
+    exit 1
+fi
+
+# === Ambil Daftar Proses PM2 Aman ===
+PM2_LIST=$(pm2 jlist 2>/dev/null || echo "[]")
+
+# === Validasi JSON agar tidak error parse ===
+if ! echo "$PM2_LIST" | jq empty 2>/dev/null; then
+    log "[WARNING] pm2 jlist menghasilkan JSON tidak valid. Menghapus semua proses lama..."
+    pm2 delete all || true
+    PM2_LIST="[]"
+fi
+
+# === Hapus Proses Korup (Tidak Online) ===
 log "[INFO] Mengecek proses '$APP_NAME' yang tidak aktif atau korup..."
-CORRUPT_IDS=$(pm2 jlist | jq -r ".[] | select(.name==\"$APP_NAME\" and .pm2_env.status != \"online\") | .pm_id")
+CORRUPT_IDS=$(echo "$PM2_LIST" | jq -r ".[] | select(.name==\"$APP_NAME\" and .pm2_env.status != \"online\") | .pm_id")
 if [[ -n "$CORRUPT_IDS" ]]; then
     for ID in $CORRUPT_IDS; do
         log "[INFO] Menghapus proses '$APP_NAME' dengan ID $ID (status tidak valid)..."
@@ -32,8 +48,8 @@ if [[ -n "$CORRUPT_IDS" ]]; then
     done
 fi
 
-# === Cek Apakah Proses Valid Sudah Ada ===
-EXISTING_ENTRY=$(pm2 jlist | jq -r ".[] | select(.name==\"$APP_NAME\")")
+# === Cek & Restart atau Jalankan ===
+EXISTING_ENTRY=$(echo "$PM2_LIST" | jq -r ".[] | select(.name==\"$APP_NAME\")")
 
 if [[ -n "$EXISTING_ENTRY" ]]; then
     APP_STATUS=$(echo "$EXISTING_ENTRY" | jq -r ".pm2_env.status")
@@ -54,16 +70,16 @@ else
     pm2 start "$ENTRY_FILE" --name "$APP_NAME" --watch
 fi
 
-# === Tunggu Proses untuk Benar-Benar Berjalan ===
+# === Tunggu agar proses benar-benar berjalan ===
 sleep 5
 
-# === Validasi Status Akhir ===
+# === Validasi Status Final ===
 FINAL_STATUS=$(pm2 jlist | jq -r ".[] | select(.name==\"$APP_NAME\") | .pm2_env.status")
 
 if [[ "$FINAL_STATUS" == "online" ]]; then
     log "[✓] Server '$APP_NAME' berhasil dijalankan atau direstart."
 else
-    log "[✗] Gagal menjalankan server '$APP_NAME'."
+    log "[✗] Gagal menjalankan server '$APP_NAME'. Status akhir: $FINAL_STATUS"
     exit 1
 fi
 
