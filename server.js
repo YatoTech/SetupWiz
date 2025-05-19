@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // === Import Dependencies ===
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
 
 // === Inisialisasi Aplikasi ===
@@ -64,17 +64,24 @@ app.get('/', (req, res) => {
 
 // === Route Health Check ===
 app.get('/health', async (req, res) => {
-  const nativeConnected = mongoClient && mongoClient.topology && mongoClient.topology.isConnected && mongoClient.topology.isConnected();
-  const mongooseConnected = mongoose.connection.readyState === 1;
+  let nativeConnected = false;
+  let mongoseConnected = mongoose.connection.readyState === 1;
 
+  try {
+    await mongoClient.db().admin().ping();
+    nativeConnected = true;
+  } catch (_) {
+    nativeConnected = false;
+  }
+  
   res.status(nativeConnected && mongooseConnected ? 200 : 500).json({
-    status: nativeConnected && mongooseConnected ? 'healthy' : 'unhealthy',
+    status: nativeConnected && mongooseConnected ? 'healthy' : 'unhealthy' , 
     timestamp: new Date(),
     database: {
-      native: nativeConnected ? 'connected' : 'disconnected',
+      native: nativeConnected ? 'connected' : 'disconnected' ,
       mongoose: mongooseConnected ? 'connected' : 'disconnected'
     }
-  });
+  })
 });
 
 // === Contoh Route Akses Data ===
