@@ -66,7 +66,7 @@ fi
 
 log "[i] Menjalankan WebApp dengan PM2..."
 pm2 delete "$PM2_APP_NAME" &> /dev/null || true
-pm2 start "$APP_FILE" --name "$PM2_APP_NAME" --cwd "$WEB_DIR" --env production
+pm2 start "app.js" --name "$PM2_APP_NAME" --cwd "$WEB_DIR" --env production
 pm2 save
 
 log "✅ WebApp berjalan di http://localhost:$WEB_PORT"
